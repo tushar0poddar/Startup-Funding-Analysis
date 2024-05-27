@@ -32,16 +32,18 @@ st.set_page_config(
 )
 st.sidebar.title("Startup funding Analysis") 
 
-options = st.sidebar.selectbox('Select One', ['Overall Analysis', 'Startup', 'Investor'])
+st.session_state.option = st.sidebar.selectbox('Select One', ['Overall Analysis', 'Startup', 'Investor'])
+
+options = st.session_state.option
 
 if options=='Overall Analysis':
     load_overall_analysis(df)
 elif options=='Startup':
     st.sidebar.title('Startup Analysis')
     st.sidebar.selectbox('Select Startup', startups)
-    btn1 = st.sidebar.button('Find Startup Details')
+    btn = st.sidebar.button('Find Startup Details')
 else:
     selected_investor =  st.sidebar.selectbox('Select Investor', investors)
-    btn2 = st.sidebar.button('Find Investor Details')
-    if btn2:
+    btn = st.sidebar.button('Find Investor Details')
+    if btn:
         load_investors_details(df, selected_investor)
